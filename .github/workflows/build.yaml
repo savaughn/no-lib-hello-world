@@ -22,7 +22,7 @@ jobs:
 
       - name: Build Hello World (x86_64)
         run: |
-          gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          make
           ./main
         working-directory: Linux/amd64
 
@@ -39,7 +39,7 @@ jobs:
 
       - name: Build Hello World (ARM64)
         run: |
-          aarch64-linux-gnu-gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          make
           ./main
         working-directory: Linux/arm64
 
@@ -53,7 +53,7 @@ jobs:
 
       - name: Build Hello World (x86_64)
         run: |
-          gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          make
           ./main
         working-directory: macos/intel
 
@@ -67,7 +67,7 @@ jobs:
 
       - name: Build Hello World (ARM64)
         run: |
-          gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          make
           ./main
         working-directory: "macos/Apple"
 
@@ -84,6 +84,6 @@ jobs:
 
       - name: Build Hello World (x86_64)
         run: |
-          x86_64-w64-mingw32-gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main.exe main.c
-          ./main.exe
+          make
+          main.exe
         working-directory: Windows

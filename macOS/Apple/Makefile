@@ -12,12 +12,12 @@ all: $(OUT) $(PREPROCESS_OUT)
 
 # Build the final executable
 $(OUT): $(SRC)
-	$(CC) $(CFLAGS) -o $(OUT) $(SRC)
+	$(CC) $(CFLAGS) -e __start -o $(OUT) $(SRC)
 	@echo "main executable created"
 
 # Build the preprocessed output '.i'
 $(PREPROCESS_OUT): $(SRC)
-	$(CC) -E $(CFLAGS) -o $(PREPROCESS_OUT) $(SRC)
+	$(CC) -E $(CFLAGS) -e __start -o $(PREPROCESS_OUT) $(SRC)
 	@echo "main preprocessed output created"
 
 # Clean the generated files

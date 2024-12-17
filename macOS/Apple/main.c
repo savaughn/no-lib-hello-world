@@ -1,6 +1,6 @@
 // Minimal "Hello, World!" program for macOS ARM without the standard library
 
-void _start() {
+void __start() {
     const char message[] = "Hello, World!\n";
     long size = sizeof(message) - 1;
 
