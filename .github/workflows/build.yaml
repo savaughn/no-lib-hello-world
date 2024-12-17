@@ -1,0 +1,89 @@
+name: Build and Test Minimal Hello World
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  # Linux x86_64
+  linux_amd64:
+    runs-on: ubuntu-latest
+    name: Build and Test Linux (x86_64)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install GCC and build tools
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Build Hello World (x86_64)
+        run: |
+          gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          ./main
+        working-directory: Linux/amd64
+
+  # Linux arm64
+  linux_arm64:
+    runs-on: 2cpu-linux-arm64 
+    name: Build and Test Linux (arm64)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: sudo apt-get update && sudo apt-get install build-essential
+
+      - name: Build Hello World (ARM64)
+        run: |
+          aarch64-linux-gnu-gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          ./main
+        working-directory: Linux/arm64
+
+  # macOS x86_64
+  macos_x86_64:
+    runs-on: macos-13
+    name: Build and Test macOS (x86_64)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Hello World (x86_64)
+        run: |
+          gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          ./main
+        working-directory: macos/intel
+
+  # macOS arm64
+  macos_arm64:
+    runs-on: macos-latest
+    name: Build and Test macOS (ARM 64-bit)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Hello World (ARM64)
+        run: |
+          gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main main.c
+          ./main
+        working-directory: "macos/Apple"
+
+  # Windows x86_64
+  windows_x86_64:
+    runs-on: windows-latest
+    name: Build and Test Windows (x86_64)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install MinGW
+        run: choco install mingw
+
+      - name: Build Hello World (x86_64)
+        run: |
+          x86_64-w64-mingw32-gcc -nostartfiles -nodefaultlibs -static -fno-stack-protector -o main.exe main.c
+          ./main.exe
+        working-directory: Windows
